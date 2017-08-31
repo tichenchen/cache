@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cookie 实例</title>
+    <script type="text/javascript" src="cookie.js"></script>
+</head>
+<body>
+<p style="border: 2px dashed #ccc;width:320px;text-align:center;">
+    <label for="user_name">key：</label>
+    <input type="text" id="user_name" name="user_name" class="text"/>
+    <br/>
+    <label for="mobilephone">value：</label>
+    <input type="text" id="mobilephone" name="mobilephone"/>
+    <br/>
+    <input type="button" onclick="save()" value="保存"/>
+<hr/>
+<label for="search_phone">key：</label>
+<input type="text" id="search_phone" name="search_phone"/>
+<input type="button" onclick="find()" value="获取"/>
+<input type="button" onclick="deleteCookie()" value="删除"/>
+<p id="find_result"><br/></p>
+</p>
+<script>
+    //保存数据
+    function save(){
+        var mobilephone = document.getElementById("mobilephone").value;
+        var user_name = document.getElementById("user_name").value;
+        //设置数据
+        cookie.set(user_name,mobilephone);
+    }
+    //获取数据
+    function find(){
+        var search_phone = document.getElementById("search_phone").value;
+        var name = cookie.get(search_phone);
+        var find_result = document.getElementById("find_result");
+        find_result.innerHTML = search_phone + "的机主是：" + name;
+    }
+    //删除cookie
+    function deleteCookie(){
+        var search_phone = document.getElementById("search_phone").value;
+        cookie.delete(search_phone);
+    }
+</script>
+</body>
+</html>

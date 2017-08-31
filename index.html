@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html manifest="demo.appcache">
+<head>
+    <meta charset="UTF-8">
+    <title>应用缓存</title>
+</head>
+<body>
+<p id="timePara"><button onclick="getDateTime()">获取日期和时间</button></p>
+<p><img src="image/dou.jpg" width="400" height="300"></p>
+<p><img src="image/image.jpg" width="400" height="300"></p>
+
+<p>尝试打开 <a href="webStorage.html">这个页面</a>web storage缓存</p>
+<script>
+    //创建对象
+    var xhr = new XMLHttpRequest();
+    //设置过程结果
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState == 4){
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304){
+                alert(xhr.responseText);
+            } else {
+                alert("Request was unsuccessful: " + xhr.status);
+            }
+        }
+    };
+    xhr.open("GET","haha.txt",true);
+    //要成功发送请求头部信息，必须在调用 open()方法之后且调用 send()方法之前调用 setRequestHeader()，
+    xhr.setRequestHeader("Content-type","text/plain;charset=UTF-8");
+    xhr.send(null);
+    //获取日期
+    function getDateTime(){
+        var time = document.getElementById("timePara");
+        time.innerText = new Date();
+
+    }
+</script>
+</body>
+</html>

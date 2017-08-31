@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>web storage 存储</title>
+</head>
+<body>
+<p style="border: 2px dashed #ccc;width:320px;text-align:center;">
+    <label for="user_name">姓名：</label>
+    <input type="text" id="user_name" name="user_name" class="text"/>
+    <br/>
+    <label for="mobilephone">手机：</label>
+    <input type="text" id="mobilephone" name="mobilephone"/>
+    <br/>
+    <input type="button" onclick="saveCookie()" value="新增记录"/>
+<hr/>
+<label for="search_phone">输入手机号：</label>
+<input type="text" id="search_phone" name="search_phone"/>
+<input type="button" onclick="find()" value="查找机主"/>
+<p id="find_result"><br/></p>
+</p>
+<br/>
+<p id="list">
+</p>
+<input type="button" onclick="loadAll()" value="所有信息"/>
+<a href="cookie.html">cookie</a>
+<script>
+    //保存数据
+    function saveCookie(){
+        var mobilephone = document.getElementById("mobilephone").value;
+        var user_name = document.getElementById("user_name").value;
+        localStorage.setItem(mobilephone,user_name);
+    }
+    //获取数据
+    function find(){
+        var search_phone = document.getElementById("search_phone").value;
+        var name = localStorage.getItem(search_phone);
+        var find_result = document.getElementById("find_result");
+        find_result.innerHTML = search_phone + "的机主是：" + name;
+    }
+    //将所有存储在localStorage中的对象提取出来，并展现到界面上
+    function loadAll(){
+        var list = document.getElementById("list");
+        if(localStorage.length>0){
+            var result = "<table border='1'>";
+            result += "<tr><td>姓名</td><td>手机号码</td></tr>";
+            for(var i=0;i<localStorage.length;i++){
+                var mobilephone = localStorage.key(i);
+                var name = localStorage.getItem(mobilephone);
+                result += "<tr><td>"+name+"</td><td>"+mobilephone+"</td></tr>";
+            }
+            result += "</table>";
+            list.innerHTML = result;
+        }else{
+            list.innerHTML = "目前数据为空，赶紧开始加入联系人吧";
+        }
+    }
+</script>
+</body>
+</html>
